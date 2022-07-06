@@ -12,4 +12,6 @@ router.get('',function(requ,res,next){
         res.send({code:'00000',record:data})
     })
 })
+
+
 module.exports=router
