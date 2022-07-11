@@ -31,4 +31,18 @@ router.get('/list',function(req,res,next){
     })
 })
 
+router.post('/edit',function(req,res,next){
+    const sql='update service set `access`=?,`sname`=?,`mname`=?,`category`=?,`capacity`=?,`icons`=? where `id`=? '
+    const {access,sname,mname,category,capacity,icons,id}=req.body
+    sqlFn(sql,[access,sname,mname,category,capacity,icons,id],function(err,data){
+        if(err){
+            next(err)
+            return
+        }
+        if(data.affectedRows){
+            res.send({code:'00000',success:true})
+        }
+    })
+})
+
 module.exports=router
