@@ -18,7 +18,7 @@ router.post('/add',function(req,res,next){
 })
 
 
-router.get('/list',function(req,res,next){
+router.get('/fetching',function(req,res,next){
     const sql='select * from service'
     //const sql='select * from test'
     sqlFn(sql,[],function(err,data){
@@ -35,6 +35,19 @@ router.post('/edit',function(req,res,next){
     const sql='update service set `access`=?,`sname`=?,`mname`=?,`category`=?,`capacity`=?,`icons`=? where `id`=? '
     const {access,sname,mname,category,capacity,icons,id}=req.body
     sqlFn(sql,[access,sname,mname,category,capacity,icons,id],function(err,data){
+        if(err){
+            next(err)
+            return
+        }
+        if(data.affectedRows){
+            res.send({code:'00000',success:true})
+        }
+    })
+})
+
+router.post('/delete',function(req,res,next){
+    const sql='delete from service where `id`=? '
+    sqlFn(sql,[req.body.id],function(err,data){
         if(err){
             next(err)
             return
