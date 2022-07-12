@@ -6,7 +6,7 @@ const area=require('./routes/location')
 const bodyParser=require('body-parser')
 
 
-//app.use('/api',test)
+app.use('/api',test)
 app.use(bodyParser.json()) //middleware
 app.use('/api/service',service)
 app.use('/api/area',area)

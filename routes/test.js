@@ -3,7 +3,7 @@ const router=express.Router()
 const sqlFn=require('../mysql')
 
 router.get('',function(requ,res,next){
-    const sql='select * from test'
+    const sql='select * from state'
     sqlFn(sql,[],function(err,data){
         if(err){
             next(err)
