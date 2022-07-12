@@ -1,6 +1,6 @@
 const express=require('express')
 const app=express()
-//const test=require('./routes/test')
+const test=require('./routes/test')
 const service=require('./routes/service')
 const area=require('./routes/location')
 const bodyParser=require('body-parser')
