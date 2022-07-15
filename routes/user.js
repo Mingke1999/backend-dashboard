@@ -31,13 +31,28 @@ router.post('/add',function(req,res,next){
 })
 
 router.get('/all',function(req,res,next){
-    const sql=`select * from user ${req.query.uname?'where locate(?,username)>0':''}`
-    sqlExec(sql,[req.query.uname],function(err,data){
+    const {query}=req
+    const {current=1,pageSize=5}=query
+    const filterSql=`select count(*) as num from user ${req.query.uname?'where locate(?,username)>0':''}`
+
+    sqlExec(filterSql,[query.uname],function(err,data){
         if(err){
             next(err)
             return
         }
-        res.send({code:'00000',records:data})  
+        const total=data[0].num 
+        const sql=`select * from user ${req.query.uname?'where locate(?,username)>0':''}
+        limit ${pageSize*(current-1)},${pageSize}`
+        sqlExec(sql,[req.query.uname],function(err,data){
+            if(err){
+                next(err)
+                return
+            }
+            res.send({code:'00000',records:data,pagination:{total,pageSize}})  
+        })
     })
+
+
+   
 })
 module.exports=router
