@@ -51,8 +51,33 @@ router.get('/all',function(req,res,next){
             res.send({code:'00000',records:data,pagination:{total,pageSize}})  
         })
     })
-
-
    
+    router.post('/edit',function(req,res,next){
+        const sql='update user set `location`=?,`profile`=?,`username`=?,`password`=?,`email`=?,`phonenumber`=? where `id`=? '
+        const { location,profile,username,password,email,phonenumber,id}=req.body
+        sqlExec(sql,[ location,profile,username,password,email,phonenumber,id],function(err,data){
+            if(err){
+                next(err)
+                return
+            }
+            if(data.affectedRows){
+                res.send({code:'00000',success:true})
+            }
+        })
+    })
+   router.post('/delete',function(req,res,next){
+        const sql='delete from user where `id`=?'
+        sqlExec(sql,[req.body.id],function(err,data){
+            if(err){
+                next(err)
+                return
+            }
+            if(data.affectedRows){
+                res.send({code:'00000',success:true})
+            }
+        })
+
+        
+   })
 })
 module.exports=router
