@@ -1,10 +1,10 @@
 const express=require('express')
 const router=express.Router()
-const sqlFn=require('../mysql')
+const sqlExec=require('../mysql')
 
 router.get('/state',function(req,res,next){
     const sql='select * from `state`'
-    sqlFn(sql,[],function(err,data){
+    sqlExec(sql,[],function(err,data){
         if(err){
             next(err)
             return
@@ -16,7 +16,7 @@ router.get('/state',function(req,res,next){
 router.get('/postcode',function(req,res,next){
     const sql='select * from postcode where `pid`=?'
    
-    sqlFn(sql,[req.query.pid],function(err,data){ 
+    sqlExec(sql,[req.query.pid],function(err,data){ 
         if(err){
             next(err)
             return
@@ -30,7 +30,7 @@ router.get('/postcode',function(req,res,next){
 router.get('/city',function(req,res,next){
     const sql='select * from city where `pid`=?'
    
-    sqlFn(sql,[req.query.pid],function(err,data){ 
+    sqlExec(sql,[req.query.pid],function(err,data){ 
         if(err){
             next(err)
             return

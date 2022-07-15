@@ -1,10 +1,10 @@
 const express=require('express')
 const router=express.Router()
-const sqlFn=require('../mysql')
+const sqlExec=require('../mysql')
 
 router.get('',function(requ,res,next){
     const sql='select * from state'
-    sqlFn(sql,[],function(err,data){
+    sqlExec(sql,[],function(err,data){
         if(err){
             next(err)
             return  

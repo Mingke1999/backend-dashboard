@@ -4,6 +4,7 @@ const test=require('./routes/test')
 const service=require('./routes/service')
 const area=require('./routes/location')
 const upload=require('./routes/uploads')
+const user=require('./routes/user')
 const bodyParser=require('body-parser')
 
 
@@ -12,6 +13,7 @@ app.use(bodyParser.json()) //middleware
 app.use('/api',test)
 app.use('/api/service',service)
 app.use('/api/area',area)
+app.use('/api/user',user)
 app.use('/api/upload',upload)
 app.use(function(err,req,res,next){
     console.info(err.stack)

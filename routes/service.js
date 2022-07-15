@@ -1,12 +1,12 @@
 const express=require('express')
 const router=express.Router()
-const sqlFn=require('../mysql')
+const sqlExec=require('../mysql')
 
 router.post('/add',function(req,res,next){
     const sql='insert into service values(null,?,?,?,?,?,?)'
     const {access,sname,mname,category,capacity,icons}=req.body
     const arr=[access,sname,mname,category,capacity,icons]
-    sqlFn(sql,arr,function(err,data){
+    sqlExec(sql,arr,function(err,data){
         if(err){
             next(err)
             return
@@ -21,7 +21,7 @@ router.post('/add',function(req,res,next){
 router.get('/fetching',function(req,res,next){
     const sql='select * from service'
     //const sql='select * from test'
-    sqlFn(sql,[],function(err,data){
+    sqlExec(sql,[],function(err,data){
         if(err){
             next(err)
             return
@@ -34,7 +34,7 @@ router.get('/fetching',function(req,res,next){
 router.post('/edit',function(req,res,next){
     const sql='update service set `access`=?,`sname`=?,`mname`=?,`category`=?,`capacity`=?,`icons`=? where `id`=? '
     const {access,sname,mname,category,capacity,icons,id}=req.body
-    sqlFn(sql,[access,sname,mname,category,capacity,icons,id],function(err,data){
+    sqlExec(sql,[access,sname,mname,category,capacity,icons,id],function(err,data){
         if(err){
             next(err)
             return
@@ -47,7 +47,7 @@ router.post('/edit',function(req,res,next){
 
 router.post('/delete',function(req,res,next){
     const sql='delete from service where `id`=? '
-    sqlFn(sql,[req.body.id],function(err,data){
+    sqlExec(sql,[req.body.id],function(err,data){
         if(err){
             next(err)
             return
