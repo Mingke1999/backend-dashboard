@@ -76,8 +76,33 @@ router.get('/all',function(req,res,next){
                 res.send({code:'00000',success:true})
             }
         })
+   })
 
-        
+   router.post('/UpMerchant',function(req,res,next){
+    const sql='update user set access=3 where `id`=?'
+    sqlExec(sql,[req.body.id],function(err,data){
+        if(err){
+            next(err)
+            return
+        }
+        if(data.affectedRows){
+            res.send({code:'00000',success:true})
+        }
+    })
+   })
+
+  
+   router.post('/UpAdmin',function(req,res,next){
+    const sql='update user set access=1 where `id`=?'
+    sqlExec(sql,[req.body.id],function(err,data){
+        if(err){
+            next(err)
+            return
+        }
+        if(data.affectedRows){
+            res.send({code:'00000',success:true})
+        }
+    })
    })
 })
 module.exports=router
