@@ -14,10 +14,10 @@ router.post('/add',function(req,res,next){
         if(data&&data.length){  //if username exits then warning
             res.send({code:'-1',message:'The username has been token'})
         }else{  //the username is free to go
-            const sql='insert into user values (null,?,?,?,?,?,?)'  //id set as self increment
-            const {location,profile,username,password,email,phonenumber}=req.body
+            const sql='insert into user values (null,?,?,?,?,?,?,?)'  //id set as self increment
+            const {location,profile,username,password,email,phonenumber,access}=req.body
    
-            sqlExec(sql,[location,profile,username,password,email,phonenumber],function(err,data){
+            sqlExec(sql,[location,profile,username,password,email,phonenumber,access],function(err,data){
                 if(err){
                     next(err)
                     return
