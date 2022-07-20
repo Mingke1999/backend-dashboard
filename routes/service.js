@@ -1,3 +1,4 @@
+const { query } = require('express')
 const express=require('express')
 const router=express.Router()
 const sqlExec=require('../mysql')
@@ -19,18 +20,32 @@ router.post('/add',function(req,res,next){
 
 
 router.get('/fetching',function(req,res,next){
-    const sql='select * from service'
-    //const sql='select * from test'
-    sqlExec(sql,[],function(err,data){
-        if(err){
+    const sqlUser='select * from user where email=?'
+    sqlExec(sqlUser,[req.query.email],function(err,data){
+        if(err)
+        {
             next(err)
             return
         }
-        res.send({code:'00000',records:data})
-        //res.send({code:'11111',records:data,message:'something went wrong'})
+        if(data&&data.length)
+        {
+            const uid = data[0].id
+            const sql='select * from service where mid=?'
+            //const sql='select * from test'
+            sqlExec(sql,[uid],function(err,data){
+                if(err){
+                    next(err)
+                    return
+                }
+                res.send({code:'00000',records:data})
+                //res.send({code:'11111',records:data,message:'something went wrong'})
+            })
+        }
+    
     })
-})
 
+})   
+    
 router.post('/edit',function(req,res,next){
     const sql='update service set `access`=?,`sname`=?,`mname`=?,`category`=?,`capacity`=?,`icons`=? where `id`=? '
     const {access,sname,mname,category,capacity,icons,id}=req.body
