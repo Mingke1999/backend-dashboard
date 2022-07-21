@@ -1,4 +1,4 @@
-const { query } = require('express')
+
 const express=require('express')
 const router=express.Router()
 const sqlExec=require('../mysql')
@@ -32,6 +32,8 @@ router.get('/fetching',function(req,res,next){
             const uid = data[0].id
             const sql='select * from service where mid=?'
             //const sql='select * from test'
+            
+            //const sql='select * from service'
             sqlExec(sql,[uid],function(err,data){
                 if(err){
                     next(err)
@@ -40,6 +42,7 @@ router.get('/fetching',function(req,res,next){
                 res.send({code:'00000',records:data})
                 //res.send({code:'11111',records:data,message:'something went wrong'})
             })
+            
         }
     
     })

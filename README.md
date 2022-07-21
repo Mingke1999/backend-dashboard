@@ -8,3 +8,4 @@ http://expressjs.com/en/guide/database-integration.html#mysql
 
 
 yarn add body-parser parsering frontend data
+yarn jsonwebtoken for session login
