@@ -16,7 +16,7 @@ router.post('',function(req,res,next){
             const token=jwt.sign({
                 username:data[0].username
             },jwtSecret)
-            res.send({code:'00000',success:true,token})
+            res.send({code:'00000',success:true,token,records:data})
         }else{
             res.send({code:'-1',message:'account or password fault'})
         }
